@@ -11,7 +11,9 @@ HEX = hello-cq.hex
 
 ELF = $(HEX:.hex=.elf)
 
+ifndef TTY
 TTY = /dev/tty.usbmodem14201
+endif
 
 default: $(HEX)
 
@@ -32,11 +34,11 @@ $(HEX): $(ELF)
 $(ELF): $(OBJS)
 	$(LD) $(LDFLAGS) $^ -o $@
 
-tty: $(TTY)
+tty: force
 	@echo "device is connected as $(TTY)"
 
 prog: $(HEX)
-	avrdude -v -p m328p -c arduino -P /dev/tty.usbmodem14201 -b 115200 -D -U flash:w:$(HEX):i
+	avrdude -v -p m328p -c arduino -P $(TTY) -b 115200 -D -U flash:w:$(HEX):i
 
 clean: force
 	rm -f $(OBJS) $(OBJS:.o=.d)

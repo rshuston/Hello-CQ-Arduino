@@ -10,6 +10,7 @@ following:
 - avrdude
 
 The project makefile assumes that the Arduino UNO connects as `/dev/tty.usbmodem14201`
-on macOS. You may need to modify the TTY variable to suit your environment.
+on macOS. You can define a TTY environment variable specifying a different serial device
+connection.
 
 The project in the `testing` subdirectory allows for the testing of the `morse` module.
